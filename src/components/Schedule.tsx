@@ -204,7 +204,7 @@ function _Schedule<T extends ICalendarEventBase>({
                 },
               ]}
             >
-              {date.format('ddd')}
+              {date.format('dddd')}
             </Text>
           </View>
         </View>

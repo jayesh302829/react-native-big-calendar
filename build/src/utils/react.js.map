@@ -1,1 +1,0 @@
-{"version":3,"file":"react.js","sourceRoot":"","sources":["../../../src/utils/react.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAA;AAEzB,MAAM,CAAC,IAAM,SAAS,GAAmB,KAAK,CAAC,IAAI,CAAA","sourcesContent":["import React from 'react'\n\nexport const typedMemo: <T>(c: T) => T = React.memo\n"]}

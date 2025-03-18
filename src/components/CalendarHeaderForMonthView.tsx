@@ -81,7 +81,7 @@ function _CalendarHeaderForMonthView({
                 },
               ]}
             >
-              {date.format('ddd')}
+              {date.format('dddd')}
             </Text>
           </View>
         </View>

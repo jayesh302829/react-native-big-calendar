@@ -1256,7 +1256,7 @@ function _CalendarHeader(_a) {
                                         : theme.palette.primary.main
                                     : theme.palette.gray['500'],
                             },
-                        ] }, date.format('ddd')),
+                        ] }, date.format('dddd')),
                     React.createElement(View, { style: objHasContent(dayHeaderStyle)
                             ? dayHeaderStyle
                             : shouldHighlight
@@ -1286,7 +1286,7 @@ function _CalendarHeader(_a) {
                                     shouldHighlight &&
                                     !stringHasContent(dayHeaderHighlightColor) &&
                                     u['mt-6'],
-                            ] }, date.format('D')))),
+                            ] }, date.format('DD/MM/YYYY')))),
                 showAllDayEventCell ? (React.createElement(View, { style: [
                         u['border-l'],
                         { borderColor: theme.palette.gray['200'] },
@@ -1336,7 +1336,7 @@ function _CalendarHeaderForMonthView(_a) {
                                 ? theme.palette.primary.main
                                 : theme.palette.gray['800'],
                         },
-                    ] }, date.format('ddd'))))); })));
+                    ] }, date.format('dddd'))))); })));
 }
 var CalendarHeaderForMonthView = typedMemo(_CalendarHeaderForMonthView);
 
@@ -1425,7 +1425,7 @@ function _Schedule(_a) {
                                         : theme.palette.primary.main
                                     : theme.palette.gray['500'],
                             },
-                        ] }, date.format('ddd')))),
+                        ] }, date.format('dddd')))),
             React__default.createElement(View, { style: [u.flex, u['flex-column'], { width: '75%' }] }, eventGroup.map(function (event, index) {
                 return (React__default.createElement(View, { style: [u['flex-1'], u['overflow-hidden'], { marginTop: 2, marginBottom: 2 }], key: "".concat(index, "-").concat(event.start, "-").concat(event.title, "-").concat(event.end) },
                     React__default.createElement(CalendarEvent, { key: "".concat(index).concat(event.start).concat(event.title).concat(event.end), event: event, onPressEvent: onPressEvent, eventCellStyle: eventStyles, eventCellAccessibilityProps: eventCellAccessibilityProps, showTime: showTime, eventCount: isEventOrderingEnabled ? getCountOfEventsAtEvent(event, events) : undefined, eventOrder: isEventOrderingEnabled ? getOrderOfEvent(event, events) : undefined, overlapOffset: overlapOffset, renderEvent: renderEvent, ampm: ampm, mode: "schedule" })));
