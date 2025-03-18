@@ -1294,11 +1294,8 @@ function _CalendarHeader(_a) {
                             : [u['mb-6']] },
                         React__namespace.createElement(reactNative.Text, { style: [
                                 {
-                                    color: shouldHighlight
-                                        ? stringHasContent(dayHeaderHighlightColor)
-                                            ? dayHeaderHighlightColor
-                                            : theme.palette.primary.contrastText
-                                        : theme.palette.gray['500'],
+                                    color: 'black',
+                                    fontSize: 15
                                 },
                                 theme.typography.xl,
                                 u['text-center'],

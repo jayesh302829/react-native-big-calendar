@@ -172,11 +172,8 @@ function _CalendarHeader<T extends ICalendarEventBase>({
                 <Text
                   style={[
                     {
-                      color: shouldHighlight
-                        ? stringHasContent(dayHeaderHighlightColor)
-                          ? dayHeaderHighlightColor
-                          : theme.palette.primary.contrastText
-                        : theme.palette.gray['500'],
+                      color: 'black',
+                      fontSize:15
                     },
                     theme.typography.xl,
                     u['text-center'],
