@@ -1234,7 +1234,7 @@ function TouchableGradually(_a) {
 }
 
 function _CalendarHeader(_a) {
-    var dateRange = _a.dateRange, cellHeight = _a.cellHeight, style = _a.style, allDayEventCellStyle = _a.allDayEventCellStyle, allDayEventCellTextColor = _a.allDayEventCellTextColor, allDayEvents = _a.allDayEvents, onPressDateHeader = _a.onPressDateHeader, onPressEvent = _a.onPressEvent, activeDate = _a.activeDate, _b = _a.headerContentStyle, headerContentStyle = _b === void 0 ? {} : _b, _c = _a.dayHeaderStyle, dayHeaderStyle = _c === void 0 ? {} : _c, _d = _a.dayHeaderHighlightColor, dayHeaderHighlightColor = _d === void 0 ? '' : _d, _e = _a.weekDayHeaderHighlightColor, weekDayHeaderHighlightColor = _e === void 0 ? '' : _e, _f = _a.showAllDayEventCell, showAllDayEventCell = _f === void 0 ? true : _f, _g = _a.hideHours, hideHours = _g === void 0 ? false : _g, _h = _a.showWeekNumber, showWeekNumber = _h === void 0 ? false : _h, _j = _a.weekNumberPrefix, weekNumberPrefix = _j === void 0 ? '' : _j, _k = _a.allDayEventCellAccessibilityProps, allDayEventCellAccessibilityProps = _k === void 0 ? {} : _k, _l = _a.headerContainerAccessibilityProps, headerContainerAccessibilityProps = _l === void 0 ? {} : _l, _m = _a.headerCellAccessibilityProps, headerCellAccessibilityProps = _m === void 0 ? {} : _m;
+    var dateRange = _a.dateRange, cellHeight = _a.cellHeight, style = _a.style, allDayEventCellStyle = _a.allDayEventCellStyle, allDayEventCellTextColor = _a.allDayEventCellTextColor, allDayEvents = _a.allDayEvents, onPressDateHeader = _a.onPressDateHeader, onPressEvent = _a.onPressEvent, activeDate = _a.activeDate, _b = _a.headerContentStyle, headerContentStyle = _b === void 0 ? {} : _b, _c = _a.dayHeaderStyle, dayHeaderStyle = _c === void 0 ? {} : _c, _d = _a.weekDayHeaderHighlightColor, weekDayHeaderHighlightColor = _d === void 0 ? '' : _d, _e = _a.showAllDayEventCell, showAllDayEventCell = _e === void 0 ? true : _e, _f = _a.hideHours, hideHours = _f === void 0 ? false : _f, _g = _a.showWeekNumber, showWeekNumber = _g === void 0 ? false : _g, _h = _a.weekNumberPrefix, weekNumberPrefix = _h === void 0 ? '' : _h, _j = _a.allDayEventCellAccessibilityProps, allDayEventCellAccessibilityProps = _j === void 0 ? {} : _j, _k = _a.headerContainerAccessibilityProps, headerContainerAccessibilityProps = _k === void 0 ? {} : _k, _l = _a.headerCellAccessibilityProps, headerCellAccessibilityProps = _l === void 0 ? {} : _l;
     var _onPressHeader = React__namespace.useCallback(function (date) {
         onPressDateHeader === null || onPressDateHeader === void 0 ? void 0 : onPressDateHeader(date);
     }, [onPressDateHeader]);
@@ -1297,12 +1297,8 @@ function _CalendarHeader(_a) {
                                     color: 'black',
                                     fontSize: 15
                                 },
-                                theme.typography.xl,
+                                // theme.typography.xl,
                                 u['text-center'],
-                                reactNative.Platform.OS === 'web' &&
-                                    shouldHighlight &&
-                                    !stringHasContent(dayHeaderHighlightColor) &&
-                                    u['mt-6'],
                             ] }, date.format('DD/MM/YYYY')))),
                 showAllDayEventCell ? (React__namespace.createElement(reactNative.View, { style: [
                         u['border-l'],

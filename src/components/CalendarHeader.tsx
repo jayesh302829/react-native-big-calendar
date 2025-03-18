@@ -2,7 +2,6 @@ import dayjs from 'dayjs'
 import * as React from 'react'
 import {
   type AccessibilityProps,
-  Platform,
   Text,
   TouchableOpacity,
   View,
@@ -28,7 +27,6 @@ export interface CalendarHeaderProps<T extends ICalendarEventBase> {
   activeDate?: Date
   headerContentStyle?: ViewStyle
   dayHeaderStyle?: ViewStyle
-  dayHeaderHighlightColor?: string
   weekDayHeaderHighlightColor?: string
   showAllDayEventCell?: boolean
   hideHours?: boolean
@@ -51,7 +49,6 @@ function _CalendarHeader<T extends ICalendarEventBase>({
   activeDate,
   headerContentStyle = {},
   dayHeaderStyle = {},
-  dayHeaderHighlightColor = '',
   weekDayHeaderHighlightColor = '',
   showAllDayEventCell = true,
   hideHours = false,
@@ -175,12 +172,8 @@ function _CalendarHeader<T extends ICalendarEventBase>({
                       color: 'black',
                       fontSize:15
                     },
-                    theme.typography.xl,
+                    // theme.typography.xl,
                     u['text-center'],
-                    Platform.OS === 'web' &&
-                      shouldHighlight &&
-                      !stringHasContent(dayHeaderHighlightColor) &&
-                      u['mt-6'],
                   ]}
                 >
                   {date.format('DD/MM/YYYY')}
