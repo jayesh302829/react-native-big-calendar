@@ -3,6 +3,7 @@ import type { EventCellStyle, EventRenderer, ICalendarEventBase, Mode } from '..
 interface CalendarEventProps<T extends ICalendarEventBase> {
     event: T;
     onPressEvent?: (event: T) => void;
+    onLongPressEvent?: (event: T) => void;
     eventCellStyle?: EventCellStyle<T>;
     eventCellTextColor?: string;
     eventCellAccessibilityProps?: AccessibilityProps;
@@ -17,6 +18,6 @@ interface CalendarEventProps<T extends ICalendarEventBase> {
     minHour?: number;
     hours?: number;
 }
-declare function _CalendarEvent<T extends ICalendarEventBase>({ event, onPressEvent, eventCellStyle, eventCellAccessibilityProps, eventCellTextColor, showTime, eventCount, eventOrder, overlapOffset, renderEvent, ampm, mode, minHour, hours, }: CalendarEventProps<T>): JSX.Element;
+declare function _CalendarEvent<T extends ICalendarEventBase>({ event, onPressEvent, onLongPressEvent, eventCellStyle, eventCellAccessibilityProps, eventCellTextColor, showTime, eventCount, eventOrder, overlapOffset, renderEvent, ampm, mode, minHour, hours, }: CalendarEventProps<T>): JSX.Element;
 export declare const CalendarEvent: typeof _CalendarEvent;
 export {};

@@ -107,6 +107,7 @@ export interface CalendarContainerProps<T extends ICalendarEventBase> {
   onPressCell?: (date: Date) => void
   onPressDateHeader?: (date: Date) => void
   onPressEvent?: (event: T) => void
+  onLongPressEvent?: (event: T) => void
   weekEndsOn?: WeekNum
   maxVisibleEventCount?: number
   eventMinHeightForMonthView?: number
@@ -195,6 +196,7 @@ function _CalendarContainer<T extends ICalendarEventBase>({
   onPressCell,
   onPressDateHeader,
   onPressEvent,
+  onLongPressEvent,
   renderEvent,
   renderHeader: HeaderComponent = CalendarHeader,
   renderHeaderForMonthView: HeaderComponentForMonthView = CalendarHeaderForMonthView,
@@ -336,6 +338,7 @@ function _CalendarContainer<T extends ICalendarEventBase>({
     dateRange: getDateRange(targetDate),
     mode,
     onPressEvent,
+    onLongPressEvent,
     hideHours,
     showWeekNumber,
   }
@@ -389,6 +392,7 @@ function _CalendarContainer<T extends ICalendarEventBase>({
               }}
               onPressDateHeader={onPressDateHeader}
               onPressEvent={onPressEvent}
+              onLongPressEvent={onLongPressEvent}
               renderEvent={renderEvent}
               targetDate={getCurrentDate(index)}
               maxVisibleEventCount={maxVisibleEventCount}
@@ -445,6 +449,7 @@ function _CalendarContainer<T extends ICalendarEventBase>({
         onLongPressCell={onLongPressCell}
         onPressCell={onPressCell}
         onPressEvent={onPressEvent}
+        onLongPressEvent={onLongPressEvent}
         onSwipeHorizontal={onSwipeHorizontal}
         renderEvent={renderEvent}
         headerComponent={headerComponent}
@@ -491,6 +496,7 @@ function _CalendarContainer<T extends ICalendarEventBase>({
               }
             }}
             onPressEvent={onPressEvent}
+            onLongPressEvent={onLongPressEvent}
             renderEvent={renderEvent}
             headerComponent={headerComponent}
             headerComponentStyle={headerComponentStyle}

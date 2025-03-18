@@ -21,6 +21,7 @@ interface CalendarBodyProps<T extends ICalendarEventBase> {
     onLongPressCell?: (date: Date) => void;
     onPressCell?: (date: Date) => void;
     onPressEvent?: (event: T) => void;
+    onLongPressEvent?: (event: T) => void;
     renderEvent?: EventRenderer<T>;
     headerComponent?: React.ReactElement | null;
     headerComponentStyle?: ViewStyle;
@@ -37,6 +38,6 @@ interface CalendarBodyProps<T extends ICalendarEventBase> {
     timeslots?: number;
     hourComponent?: HourRenderer;
 }
-declare function _CalendarBody<T extends ICalendarEventBase>({ containerHeight, cellHeight, dateRange, style, onLongPressCell, onPressCell, events, onPressEvent, eventCellTextColor, eventCellStyle, eventCellAccessibilityProps, calendarCellStyle, calendarCellAccessibilityProps, ampm, showTime, scrollOffsetMinutes, hideNowIndicator, overlapOffset, renderEvent, headerComponent, headerComponentStyle, hourStyle, hideHours, minHour, maxHour, isEventOrderingEnabled, showWeekNumber, showVerticalScrollIndicator, enrichedEventsByDate, enableEnrichedEvents, eventsAreSorted, timeslots, hourComponent, }: CalendarBodyProps<T>): React.JSX.Element;
+declare function _CalendarBody<T extends ICalendarEventBase>({ containerHeight, cellHeight, dateRange, style, onLongPressCell, onPressCell, events, onPressEvent, onLongPressEvent, eventCellTextColor, eventCellStyle, eventCellAccessibilityProps, calendarCellStyle, calendarCellAccessibilityProps, ampm, showTime, scrollOffsetMinutes, hideNowIndicator, overlapOffset, renderEvent, headerComponent, headerComponentStyle, hourStyle, hideHours, minHour, maxHour, isEventOrderingEnabled, showWeekNumber, showVerticalScrollIndicator, enrichedEventsByDate, enableEnrichedEvents, eventsAreSorted, timeslots, hourComponent, }: CalendarBodyProps<T>): React.JSX.Element;
 export declare const CalendarBody: typeof _CalendarBody;
 export {};

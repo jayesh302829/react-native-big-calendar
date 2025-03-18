@@ -12,6 +12,7 @@ import { typedMemo } from '../utils/react'
 interface CalendarEventProps<T extends ICalendarEventBase> {
   event: T
   onPressEvent?: (event: T) => void
+  onLongPressEvent?: (event: T) => void
   eventCellStyle?: EventCellStyle<T>
   eventCellAccessibilityProps?: AccessibilityProps
   renderEvent?: EventRenderer<T>
@@ -26,6 +27,7 @@ interface CalendarEventProps<T extends ICalendarEventBase> {
 function _CalendarEventForMonthView<T extends ICalendarEventBase>({
   event,
   onPressEvent,
+  onLongPressEvent,
   eventCellStyle,
   eventCellAccessibilityProps = {},
   renderEvent,
@@ -48,6 +50,7 @@ function _CalendarEventForMonthView<T extends ICalendarEventBase>({
     eventCellStyle,
     eventCellAccessibilityProps,
     onPressEvent,
+    onLongPressEvent,
     injectedStyles: [
       { backgroundColor: theme.palette.primary.main },
       isMultipleDaysStart && eventWeekDuration > 1
@@ -65,6 +68,13 @@ function _CalendarEventForMonthView<T extends ICalendarEventBase>({
     <TouchableOpacity
       style={[{ minHeight: eventMinHeightForMonthView }, u['mt-2']]}
       onPress={() => !event.disabled && onPressEvent?.(event)}
+      onLongPress={() => {
+        if (!event.disabled) {
+          console.log("Event long-pressed:", event);
+          onLongPressEvent?.(event); // Call a function when long-pressed
+        }
+      }}
+      delayLongPress={500}
     >
       {(!isMultipleDays && date.isSame(event.start, 'day')) ||
       (isMultipleDays && isMultipleDaysStart) ? (

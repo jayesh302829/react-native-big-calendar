@@ -12,6 +12,7 @@ export interface CalendarHeaderProps<T extends ICalendarEventBase> {
     allDayEvents: T[];
     onPressDateHeader?: (date: Date) => void;
     onPressEvent?: (event: T) => void;
+    onLongPressEvent?: (event: T) => void;
     activeDate?: Date;
     headerContentStyle?: ViewStyle;
     dayHeaderStyle?: ViewStyle;
@@ -24,6 +25,6 @@ export interface CalendarHeaderProps<T extends ICalendarEventBase> {
     headerContainerAccessibilityProps?: AccessibilityProps;
     headerCellAccessibilityProps?: AccessibilityProps;
 }
-declare function _CalendarHeader<T extends ICalendarEventBase>({ dateRange, cellHeight, style, allDayEventCellStyle, allDayEventCellTextColor, allDayEvents, onPressDateHeader, onPressEvent, headerContentStyle, dayHeaderStyle, showAllDayEventCell, hideHours, showWeekNumber, weekNumberPrefix, allDayEventCellAccessibilityProps, headerContainerAccessibilityProps, headerCellAccessibilityProps, }: CalendarHeaderProps<T>): React.JSX.Element;
+declare function _CalendarHeader<T extends ICalendarEventBase>({ dateRange, cellHeight, style, allDayEventCellStyle, allDayEventCellTextColor, allDayEvents, onPressDateHeader, onPressEvent, onLongPressEvent, headerContentStyle, dayHeaderStyle, showAllDayEventCell, hideHours, showWeekNumber, weekNumberPrefix, allDayEventCellAccessibilityProps, headerContainerAccessibilityProps, headerCellAccessibilityProps, }: CalendarHeaderProps<T>): React.JSX.Element;
 export declare const CalendarHeader: typeof _CalendarHeader;
 export {};

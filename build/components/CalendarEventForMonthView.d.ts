@@ -5,6 +5,7 @@ import type { EventCellStyle, EventRenderer, ICalendarEventBase } from '../inter
 interface CalendarEventProps<T extends ICalendarEventBase> {
     event: T;
     onPressEvent?: (event: T) => void;
+    onLongPressEvent?: (event: T) => void;
     eventCellStyle?: EventCellStyle<T>;
     eventCellAccessibilityProps?: AccessibilityProps;
     renderEvent?: EventRenderer<T>;
@@ -15,6 +16,6 @@ interface CalendarEventProps<T extends ICalendarEventBase> {
     eventMinHeightForMonthView: number;
     showAdjacentMonths: boolean;
 }
-declare function _CalendarEventForMonthView<T extends ICalendarEventBase>({ event, onPressEvent, eventCellStyle, eventCellAccessibilityProps, renderEvent, date, dayOfTheWeek, calendarWidth, isRTL, eventMinHeightForMonthView, showAdjacentMonths, }: CalendarEventProps<T>): React.JSX.Element;
+declare function _CalendarEventForMonthView<T extends ICalendarEventBase>({ event, onPressEvent, onLongPressEvent, eventCellStyle, eventCellAccessibilityProps, renderEvent, date, dayOfTheWeek, calendarWidth, isRTL, eventMinHeightForMonthView, showAdjacentMonths, }: CalendarEventProps<T>): React.JSX.Element;
 export declare const CalendarEventForMonthView: typeof _CalendarEventForMonthView;
 export {};

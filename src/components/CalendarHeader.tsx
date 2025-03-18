@@ -23,6 +23,7 @@ export interface CalendarHeaderProps<T extends ICalendarEventBase> {
   allDayEvents: T[]
   onPressDateHeader?: (date: Date) => void
   onPressEvent?: (event: T) => void
+  onLongPressEvent?: (event: T) => void
   activeDate?: Date
   headerContentStyle?: ViewStyle
   dayHeaderStyle?: ViewStyle
@@ -45,6 +46,7 @@ function _CalendarHeader<T extends ICalendarEventBase>({
   allDayEvents,
   onPressDateHeader,
   onPressEvent,
+  onLongPressEvent,
   headerContentStyle = {},
   dayHeaderStyle = {},
   showAllDayEventCell = true,
@@ -69,6 +71,12 @@ function _CalendarHeader<T extends ICalendarEventBase>({
     [onPressEvent],
   )
 
+  const _onLongPressEvent = React.useCallback(
+    (event: T) => {
+      onLongPressEvent?.(event)
+    },
+    [onLongPressEvent],
+  )
   const theme = useTheme()
 
   const borderColor = { borderColor: theme.palette.gray['200'] }
@@ -143,7 +151,7 @@ function _CalendarHeader<T extends ICalendarEventBase>({
                style={[
                 {
                   color: 'black',
-                  fontSize:15,
+                  fontSize:14,
                   marginTop:5,
                 },
                 // theme.typography.xl,
@@ -163,8 +171,7 @@ function _CalendarHeader<T extends ICalendarEventBase>({
                   style={[
                     {
                       color: 'black',
-                      fontSize:15,
-                      marginTop:5,
+                      fontSize:14,
                     },
                     // theme.typography.xl,
                     u['text-center'],
@@ -197,6 +204,9 @@ function _CalendarHeader<T extends ICalendarEventBase>({
                       style={[eventCellCss.style, primaryBg, u['mt-2'], getEventStyle(event)]}
                       key={`${index}-${event.start}-${event.title}-${event.end}`}
                       onPress={() => _onPressEvent(event)}
+                      onLongPress={() => {
+                       _onLongPressEvent(event)
+                      }}
                       {...allDayEventCellAccessibilityProps}
                     >
                       <Text

@@ -61,6 +61,7 @@ interface CalendarBodyProps<T extends ICalendarEventBase> {
   onLongPressCell?: (date: Date) => void
   onPressCell?: (date: Date) => void
   onPressEvent?: (event: T) => void
+  onLongPressEvent?: (event: T) => void
   renderEvent?: EventRenderer<T>
   headerComponent?: React.ReactElement | null
   headerComponentStyle?: ViewStyle
@@ -87,6 +88,7 @@ function _CalendarBody<T extends ICalendarEventBase>({
   onPressCell,
   events,
   onPressEvent,
+  onLongPressEvent,
   eventCellTextColor,
   eventCellStyle,
   eventCellAccessibilityProps = {},
@@ -185,6 +187,7 @@ function _CalendarBody<T extends ICalendarEventBase>({
           key={`${index}${event.start}${event.title}${event.end}`}
           event={event}
           onPressEvent={onPressEvent}
+          onLongPressEvent={onLongPressEvent}
           eventCellStyle={eventCellStyle}
           eventCellAccessibilityProps={eventCellAccessibilityProps}
           eventCellTextColor={eventCellTextColor}
@@ -206,6 +209,7 @@ function _CalendarBody<T extends ICalendarEventBase>({
       eventCellTextColor,
       eventCellAccessibilityProps,
       onPressEvent,
+      onLongPressEvent,
       overlapOffset,
       renderEvent,
       showTime,

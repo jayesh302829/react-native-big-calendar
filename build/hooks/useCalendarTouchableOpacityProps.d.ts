@@ -5,7 +5,8 @@ interface UseCalendarTouchableOpacityPropsProps<T extends ICalendarEventBase> {
     eventCellStyle?: EventCellStyle<T>;
     eventCellAccessibilityProps?: AccessibilityProps;
     onPressEvent?: (event: T) => void;
+    onLongPressEvent?: (event: T) => void;
     injectedStyles?: ViewStyle[];
 }
-export declare function useCalendarTouchableOpacityProps<T extends ICalendarEventBase>({ event, eventCellStyle, eventCellAccessibilityProps: eventCellAccessiblityProps, injectedStyles, onPressEvent, }: UseCalendarTouchableOpacityPropsProps<T>): CalendarTouchableOpacityProps;
+export declare function useCalendarTouchableOpacityProps<T extends ICalendarEventBase>({ event, eventCellStyle, eventCellAccessibilityProps: eventCellAccessiblityProps, injectedStyles, onPressEvent, onLongPressEvent, }: UseCalendarTouchableOpacityPropsProps<T>): CalendarTouchableOpacityProps;
 export {};

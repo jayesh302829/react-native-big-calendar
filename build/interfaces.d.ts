@@ -23,6 +23,7 @@ export type CalendarTouchableOpacityProps = {
     key: string;
     style: RecursiveArray<ViewStyle | undefined> | ViewStyle;
     onPress: () => void;
+    onLongPress: () => void;
     disabled: boolean;
 };
 export type Mode = '3days' | 'week' | 'day' | 'custom' | 'month' | 'schedule';

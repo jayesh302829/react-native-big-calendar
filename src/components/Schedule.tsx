@@ -47,6 +47,7 @@ interface ScheduleProps<T extends ICalendarEventBase> {
   onLongPressCell?: (date: Date) => void
   onPressCell?: (date: Date) => void
   onPressEvent?: (event: T) => void
+  onLongPressEvent?: (event: T) => void
   onSwipeHorizontal?: (d: HorizontalDirection) => void
   renderEvent?: EventRenderer<T>
   headerComponent?: React.ReactElement | null
@@ -72,6 +73,7 @@ function _Schedule<T extends ICalendarEventBase>({
   events,
   ampm,
   onPressEvent,
+  onLongPressEvent,
   eventCellStyle,
   eventCellAccessibilityProps = {},
   showTime,
@@ -219,6 +221,7 @@ function _Schedule<T extends ICalendarEventBase>({
                   key={`${index}${event.start}${event.title}${event.end}`}
                   event={event}
                   onPressEvent={onPressEvent}
+                  onLongPressEvent={onLongPressEvent}
                   eventCellStyle={eventStyles}
                   eventCellAccessibilityProps={eventCellAccessibilityProps}
                   showTime={showTime}

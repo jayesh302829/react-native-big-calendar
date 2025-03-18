@@ -20,6 +20,7 @@ interface ScheduleProps<T extends ICalendarEventBase> {
     onLongPressCell?: (date: Date) => void;
     onPressCell?: (date: Date) => void;
     onPressEvent?: (event: T) => void;
+    onLongPressEvent?: (event: T) => void;
     onSwipeHorizontal?: (d: HorizontalDirection) => void;
     renderEvent?: EventRenderer<T>;
     headerComponent?: React.ReactElement | null;
@@ -37,6 +38,6 @@ interface ScheduleProps<T extends ICalendarEventBase> {
     locale: string;
     scheduleMonthSeparatorStyle?: TextStyle;
 }
-declare function _Schedule<T extends ICalendarEventBase>({ events, ampm, onPressEvent, eventCellStyle, eventCellAccessibilityProps, showTime, isEventOrderingEnabled, overlapOffset, renderEvent, containerHeight, style, activeDate, weekDayHeaderHighlightColor, dayHeaderHighlightColor, itemSeparatorComponent, locale, calendarCellAccessibilityProps, scheduleMonthSeparatorStyle, }: ScheduleProps<T>): React.JSX.Element;
+declare function _Schedule<T extends ICalendarEventBase>({ events, ampm, onPressEvent, onLongPressEvent, eventCellStyle, eventCellAccessibilityProps, showTime, isEventOrderingEnabled, overlapOffset, renderEvent, containerHeight, style, activeDate, weekDayHeaderHighlightColor, dayHeaderHighlightColor, itemSeparatorComponent, locale, calendarCellAccessibilityProps, scheduleMonthSeparatorStyle, }: ScheduleProps<T>): React.JSX.Element;
 export declare const Schedule: typeof _Schedule;
 export {};

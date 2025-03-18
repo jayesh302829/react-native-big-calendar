@@ -45,6 +45,7 @@ interface CalendarBodyForMonthViewProps<T extends ICalendarEventBase> {
   onPressCell?: (date: Date) => void
   onPressDateHeader?: (date: Date) => void
   onPressEvent?: (event: T) => void
+  onLongPressEvent?: (event: T) => void
   onSwipeHorizontal?: (d: HorizontalDirection) => void
   renderEvent?: EventRenderer<T>
   maxVisibleEventCount: number
@@ -67,6 +68,7 @@ function _CalendarBodyForMonthView<T extends ICalendarEventBase>({
   onPressDateHeader,
   events,
   onPressEvent,
+  onLongPressEvent,
   eventCellStyle,
   eventCellAccessibilityProps = {},
   calendarCellStyle,
@@ -375,6 +377,7 @@ function _CalendarBodyForMonthView<T extends ICalendarEventBase>({
                             eventCellStyle={eventCellStyle}
                             eventCellAccessibilityProps={eventCellAccessibilityProps}
                             onPressEvent={onPressEvent}
+                            onLongPressEvent={onLongPressEvent}
                             renderEvent={renderEvent}
                             date={date}
                             dayOfTheWeek={ii}

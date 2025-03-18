@@ -726,13 +726,16 @@ function useNow(enabled) {
 }
 
 function useCalendarTouchableOpacityProps(_a) {
-    var event = _a.event, eventCellStyle = _a.eventCellStyle, _b = _a.eventCellAccessibilityProps, eventCellAccessiblityProps = _b === void 0 ? {} : _b, _c = _a.injectedStyles, injectedStyles = _c === void 0 ? [] : _c, onPressEvent = _a.onPressEvent;
+    var event = _a.event, eventCellStyle = _a.eventCellStyle, _b = _a.eventCellAccessibilityProps, eventCellAccessiblityProps = _b === void 0 ? {} : _b, _c = _a.injectedStyles, injectedStyles = _c === void 0 ? [] : _c, onPressEvent = _a.onPressEvent, onLongPressEvent = _a.onLongPressEvent;
     var getEventStyle = React__default["default"].useMemo(function () { return (typeof eventCellStyle === 'function' ? eventCellStyle : function () { return eventCellStyle; }); }, [eventCellStyle]);
     var plainJsEvent = React__default["default"].useMemo(function () { return (__assign(__assign({}, event), { start: dayjs__default["default"](event.start).toDate(), end: dayjs__default["default"](event.end).toDate() })); }, [event]);
     var _onPress = React__default["default"].useCallback(function () {
         onPressEvent === null || onPressEvent === void 0 ? void 0 : onPressEvent(plainJsEvent);
     }, [onPressEvent, plainJsEvent]);
-    var touchableOpacityProps = __assign({ delayPressIn: 20, key: "".concat(event.start.toISOString(), "_").concat(event.title), style: __spreadArray(__spreadArray([eventCellCss.style], injectedStyles, true), [getEventStyle(plainJsEvent)], false), onPress: _onPress, disabled: !onPressEvent || !!event.disabled }, eventCellAccessiblityProps);
+    var _onLongPress = React__default["default"].useCallback(function () {
+        onLongPressEvent === null || onLongPressEvent === void 0 ? void 0 : onLongPressEvent(plainJsEvent);
+    }, [onLongPressEvent, plainJsEvent]);
+    var touchableOpacityProps = __assign({ delayPressIn: 20, key: "".concat(event.start.toISOString(), "_").concat(event.title), style: __spreadArray(__spreadArray([eventCellCss.style], injectedStyles, true), [getEventStyle(plainJsEvent)], false), onPress: _onPress, onLongPress: _onLongPress, disabled: !onPressEvent || !!event.disabled }, eventCellAccessiblityProps);
     return touchableOpacityProps;
 }
 
@@ -762,7 +765,7 @@ var getEventCellPositionStyle = function (start, end, minHour, hours) {
     };
 };
 function _CalendarEvent(_a) {
-    var event = _a.event, onPressEvent = _a.onPressEvent, eventCellStyle = _a.eventCellStyle, _b = _a.eventCellAccessibilityProps, eventCellAccessibilityProps = _b === void 0 ? {} : _b, eventCellTextColor = _a.eventCellTextColor, showTime = _a.showTime, _c = _a.eventCount, eventCount = _c === void 0 ? 1 : _c, _d = _a.eventOrder, eventOrder = _d === void 0 ? 0 : _d, _e = _a.overlapOffset, overlapOffset = _e === void 0 ? OVERLAP_OFFSET : _e, renderEvent = _a.renderEvent, ampm = _a.ampm, mode = _a.mode, _f = _a.minHour, minHour = _f === void 0 ? 0 : _f, _g = _a.hours, hours = _g === void 0 ? 24 : _g;
+    var event = _a.event, onPressEvent = _a.onPressEvent, onLongPressEvent = _a.onLongPressEvent, eventCellStyle = _a.eventCellStyle, _b = _a.eventCellAccessibilityProps, eventCellAccessibilityProps = _b === void 0 ? {} : _b, eventCellTextColor = _a.eventCellTextColor, showTime = _a.showTime, _c = _a.eventCount, eventCount = _c === void 0 ? 1 : _c, _d = _a.eventOrder, eventOrder = _d === void 0 ? 0 : _d, _e = _a.overlapOffset, overlapOffset = _e === void 0 ? OVERLAP_OFFSET : _e, renderEvent = _a.renderEvent, ampm = _a.ampm, mode = _a.mode, _f = _a.minHour, minHour = _f === void 0 ? 0 : _f, _g = _a.hours, hours = _g === void 0 ? 24 : _g;
     var theme = useTheme();
     var palettes = React__namespace.useMemo(function () { return __spreadArray([theme.palette.primary], theme.eventCellOverlappings, true); }, [theme]);
     var touchableOpacityProps = useCalendarTouchableOpacityProps({
@@ -770,6 +773,7 @@ function _CalendarEvent(_a) {
         eventCellStyle: eventCellStyle,
         eventCellAccessibilityProps: eventCellAccessibilityProps,
         onPressEvent: onPressEvent,
+        onLongPressEvent: onLongPressEvent,
         injectedStyles: mode === 'schedule'
             ? [getStyleForOverlappingEvent(eventOrder, overlapOffset, palettes)]
             : [
@@ -833,7 +837,7 @@ var styles = reactNative.StyleSheet.create({
     },
 });
 function _CalendarBody(_a) {
-    var containerHeight = _a.containerHeight, cellHeight = _a.cellHeight, dateRange = _a.dateRange, style = _a.style, onLongPressCell = _a.onLongPressCell, onPressCell = _a.onPressCell, events = _a.events, onPressEvent = _a.onPressEvent, eventCellTextColor = _a.eventCellTextColor, eventCellStyle = _a.eventCellStyle, _b = _a.eventCellAccessibilityProps, eventCellAccessibilityProps = _b === void 0 ? {} : _b, calendarCellStyle = _a.calendarCellStyle, _c = _a.calendarCellAccessibilityProps, calendarCellAccessibilityProps = _c === void 0 ? {} : _c, ampm = _a.ampm, showTime = _a.showTime, scrollOffsetMinutes = _a.scrollOffsetMinutes, hideNowIndicator = _a.hideNowIndicator, overlapOffset = _a.overlapOffset, renderEvent = _a.renderEvent, _d = _a.headerComponent, headerComponent = _d === void 0 ? null : _d, _e = _a.headerComponentStyle, headerComponentStyle = _e === void 0 ? {} : _e, _f = _a.hourStyle, hourStyle = _f === void 0 ? {} : _f, _g = _a.hideHours, hideHours = _g === void 0 ? false : _g, _h = _a.minHour, minHour = _h === void 0 ? 0 : _h, _j = _a.maxHour, maxHour = _j === void 0 ? 23 : _j, _k = _a.isEventOrderingEnabled, isEventOrderingEnabled = _k === void 0 ? true : _k, _l = _a.showWeekNumber, showWeekNumber = _l === void 0 ? false : _l, _m = _a.showVerticalScrollIndicator, showVerticalScrollIndicator = _m === void 0 ? false : _m, enrichedEventsByDate = _a.enrichedEventsByDate, _o = _a.enableEnrichedEvents, enableEnrichedEvents = _o === void 0 ? false : _o, _p = _a.eventsAreSorted, eventsAreSorted = _p === void 0 ? false : _p, _q = _a.timeslots, timeslots = _q === void 0 ? 0 : _q, hourComponent = _a.hourComponent;
+    var containerHeight = _a.containerHeight, cellHeight = _a.cellHeight, dateRange = _a.dateRange, style = _a.style, onLongPressCell = _a.onLongPressCell, onPressCell = _a.onPressCell, events = _a.events, onPressEvent = _a.onPressEvent, onLongPressEvent = _a.onLongPressEvent, eventCellTextColor = _a.eventCellTextColor, eventCellStyle = _a.eventCellStyle, _b = _a.eventCellAccessibilityProps, eventCellAccessibilityProps = _b === void 0 ? {} : _b, calendarCellStyle = _a.calendarCellStyle, _c = _a.calendarCellAccessibilityProps, calendarCellAccessibilityProps = _c === void 0 ? {} : _c, ampm = _a.ampm, showTime = _a.showTime, scrollOffsetMinutes = _a.scrollOffsetMinutes, hideNowIndicator = _a.hideNowIndicator, overlapOffset = _a.overlapOffset, renderEvent = _a.renderEvent, _d = _a.headerComponent, headerComponent = _d === void 0 ? null : _d, _e = _a.headerComponentStyle, headerComponentStyle = _e === void 0 ? {} : _e, _f = _a.hourStyle, hourStyle = _f === void 0 ? {} : _f, _g = _a.hideHours, hideHours = _g === void 0 ? false : _g, _h = _a.minHour, minHour = _h === void 0 ? 0 : _h, _j = _a.maxHour, maxHour = _j === void 0 ? 23 : _j, _k = _a.isEventOrderingEnabled, isEventOrderingEnabled = _k === void 0 ? true : _k, _l = _a.showWeekNumber, showWeekNumber = _l === void 0 ? false : _l, _m = _a.showVerticalScrollIndicator, showVerticalScrollIndicator = _m === void 0 ? false : _m, enrichedEventsByDate = _a.enrichedEventsByDate, _o = _a.enableEnrichedEvents, enableEnrichedEvents = _o === void 0 ? false : _o, _p = _a.eventsAreSorted, eventsAreSorted = _p === void 0 ? false : _p, _q = _a.timeslots, timeslots = _q === void 0 ? 0 : _q, hourComponent = _a.hourComponent;
     var scrollView = React__namespace.useRef(null);
     var now = useNow(!hideNowIndicator).now;
     var hours = Array.from({ length: maxHour - minHour + 1 }, function (_, i) { return minHour + i; });
@@ -880,13 +884,14 @@ function _CalendarBody(_a) {
         return events;
     }, [enableEnrichedEvents, events, isEventOrderingEnabled]);
     var _renderMappedEvent = React__namespace.useCallback(function (event, index) {
-        return (React__namespace.createElement(CalendarEvent, { key: "".concat(index).concat(event.start).concat(event.title).concat(event.end), event: event, onPressEvent: onPressEvent, eventCellStyle: eventCellStyle, eventCellAccessibilityProps: eventCellAccessibilityProps, eventCellTextColor: eventCellTextColor, showTime: showTime, eventCount: event.overlapCount, eventOrder: event.overlapPosition, overlapOffset: overlapOffset, renderEvent: renderEvent, ampm: ampm, maxHour: maxHour, minHour: minHour, hours: hours.length }));
+        return (React__namespace.createElement(CalendarEvent, { key: "".concat(index).concat(event.start).concat(event.title).concat(event.end), event: event, onPressEvent: onPressEvent, onLongPressEvent: onLongPressEvent, eventCellStyle: eventCellStyle, eventCellAccessibilityProps: eventCellAccessibilityProps, eventCellTextColor: eventCellTextColor, showTime: showTime, eventCount: event.overlapCount, eventOrder: event.overlapPosition, overlapOffset: overlapOffset, renderEvent: renderEvent, ampm: ampm, maxHour: maxHour, minHour: minHour, hours: hours.length }));
     }, [
         ampm,
         eventCellStyle,
         eventCellTextColor,
         eventCellAccessibilityProps,
         onPressEvent,
+        onLongPressEvent,
         overlapOffset,
         renderEvent,
         showTime,
@@ -946,7 +951,7 @@ function _CalendarBody(_a) {
 var CalendarBody = typedMemo(_CalendarBody);
 
 function _CalendarEventForMonthView(_a) {
-    var event = _a.event, onPressEvent = _a.onPressEvent, eventCellStyle = _a.eventCellStyle, _b = _a.eventCellAccessibilityProps, eventCellAccessibilityProps = _b === void 0 ? {} : _b, renderEvent = _a.renderEvent, date = _a.date, dayOfTheWeek = _a.dayOfTheWeek, calendarWidth = _a.calendarWidth, isRTL = _a.isRTL, eventMinHeightForMonthView = _a.eventMinHeightForMonthView, showAdjacentMonths = _a.showAdjacentMonths;
+    var event = _a.event, onPressEvent = _a.onPressEvent, onLongPressEvent = _a.onLongPressEvent, eventCellStyle = _a.eventCellStyle, _b = _a.eventCellAccessibilityProps, eventCellAccessibilityProps = _b === void 0 ? {} : _b, renderEvent = _a.renderEvent, date = _a.date, dayOfTheWeek = _a.dayOfTheWeek, calendarWidth = _a.calendarWidth, isRTL = _a.isRTL, eventMinHeightForMonthView = _a.eventMinHeightForMonthView, showAdjacentMonths = _a.showAdjacentMonths;
     var theme = useTheme();
     var _c = React__namespace.useMemo(function () { return getEventSpanningInfo(event, date, dayOfTheWeek, calendarWidth, showAdjacentMonths); }, [date, dayOfTheWeek, event, calendarWidth, showAdjacentMonths]), eventWidth = _c.eventWidth, isMultipleDays = _c.isMultipleDays, isMultipleDaysStart = _c.isMultipleDaysStart, eventWeekDuration = _c.eventWeekDuration;
     var touchableOpacityProps = useCalendarTouchableOpacityProps({
@@ -954,6 +959,7 @@ function _CalendarEventForMonthView(_a) {
         eventCellStyle: eventCellStyle,
         eventCellAccessibilityProps: eventCellAccessibilityProps,
         onPressEvent: onPressEvent,
+        onLongPressEvent: onLongPressEvent,
         injectedStyles: [
             { backgroundColor: theme.palette.primary.main },
             isMultipleDaysStart && eventWeekDuration > 1
@@ -966,7 +972,12 @@ function _CalendarEventForMonthView(_a) {
             isRTL ? { right: 0 } : { left: 0 },
         ],
     });
-    return (React__namespace.createElement(reactNative.TouchableOpacity, { style: [{ minHeight: eventMinHeightForMonthView }, u['mt-2']], onPress: function () { return !event.disabled && (onPressEvent === null || onPressEvent === void 0 ? void 0 : onPressEvent(event)); } }, (!isMultipleDays && date.isSame(event.start, 'day')) ||
+    return (React__namespace.createElement(reactNative.TouchableOpacity, { style: [{ minHeight: eventMinHeightForMonthView }, u['mt-2']], onPress: function () { return !event.disabled && (onPressEvent === null || onPressEvent === void 0 ? void 0 : onPressEvent(event)); }, onLongPress: function () {
+            if (!event.disabled) {
+                console.log("Event long-pressed:", event);
+                onLongPressEvent === null || onLongPressEvent === void 0 ? void 0 : onLongPressEvent(event); // Call a function when long-pressed
+            }
+        }, delayLongPress: 500 }, (!isMultipleDays && date.isSame(event.start, 'day')) ||
         (isMultipleDays && isMultipleDaysStart) ? (renderEvent ? (renderEvent(event, touchableOpacityProps)) : (React__namespace.createElement(reactNative.View, __assign({}, touchableOpacityProps),
         React__namespace.createElement(reactNative.Text, { style: [
                 { color: theme.palette.primary.contrastText },
@@ -978,7 +989,7 @@ function _CalendarEventForMonthView(_a) {
 var CalendarEventForMonthView = typedMemo(_CalendarEventForMonthView);
 
 function _CalendarBodyForMonthView(_a) {
-    var containerHeight = _a.containerHeight, targetDate = _a.targetDate, style = _a.style, onLongPressCell = _a.onLongPressCell, onPressCell = _a.onPressCell, onPressDateHeader = _a.onPressDateHeader, events = _a.events, onPressEvent = _a.onPressEvent, eventCellStyle = _a.eventCellStyle, _b = _a.eventCellAccessibilityProps, eventCellAccessibilityProps = _b === void 0 ? {} : _b, calendarCellStyle = _a.calendarCellStyle, _c = _a.calendarCellAccessibilityPropsForMonthView, calendarCellAccessibilityPropsForMonthView = _c === void 0 ? {} : _c, _d = _a.calendarCellAccessibilityProps, calendarCellAccessibilityProps = _d === void 0 ? {} : _d, calendarCellTextStyle = _a.calendarCellTextStyle, hideNowIndicator = _a.hideNowIndicator, showAdjacentMonths = _a.showAdjacentMonths, renderEvent = _a.renderEvent, maxVisibleEventCount = _a.maxVisibleEventCount, weekStartsOn = _a.weekStartsOn, eventMinHeightForMonthView = _a.eventMinHeightForMonthView, moreLabel = _a.moreLabel, onPressMoreLabel = _a.onPressMoreLabel, sortedMonthView = _a.sortedMonthView, _e = _a.showWeekNumber, showWeekNumber = _e === void 0 ? false : _e, renderCustomDateForMonth = _a.renderCustomDateForMonth, disableMonthEventCellPress = _a.disableMonthEventCellPress;
+    var containerHeight = _a.containerHeight, targetDate = _a.targetDate, style = _a.style, onLongPressCell = _a.onLongPressCell, onPressCell = _a.onPressCell, onPressDateHeader = _a.onPressDateHeader, events = _a.events, onPressEvent = _a.onPressEvent, onLongPressEvent = _a.onLongPressEvent, eventCellStyle = _a.eventCellStyle, _b = _a.eventCellAccessibilityProps, eventCellAccessibilityProps = _b === void 0 ? {} : _b, calendarCellStyle = _a.calendarCellStyle, _c = _a.calendarCellAccessibilityPropsForMonthView, calendarCellAccessibilityPropsForMonthView = _c === void 0 ? {} : _c, _d = _a.calendarCellAccessibilityProps, calendarCellAccessibilityProps = _d === void 0 ? {} : _d, calendarCellTextStyle = _a.calendarCellTextStyle, hideNowIndicator = _a.hideNowIndicator, showAdjacentMonths = _a.showAdjacentMonths, renderEvent = _a.renderEvent, maxVisibleEventCount = _a.maxVisibleEventCount, weekStartsOn = _a.weekStartsOn, eventMinHeightForMonthView = _a.eventMinHeightForMonthView, moreLabel = _a.moreLabel, onPressMoreLabel = _a.onPressMoreLabel, sortedMonthView = _a.sortedMonthView, _e = _a.showWeekNumber, showWeekNumber = _e === void 0 ? false : _e, renderCustomDateForMonth = _a.renderCustomDateForMonth, disableMonthEventCellPress = _a.disableMonthEventCellPress;
     var now = useNow(!hideNowIndicator).now;
     var _f = React__namespace.useState(0), calendarWidth = _f[0], setCalendarWidth = _f[1];
     var _g = React__namespace.useState(0), calendarCellHeight = _g[0], setCalendarCellHeight = _g[1];
@@ -1187,7 +1198,7 @@ function _CalendarBodyForMonthView(_a) {
                     index > maxVisibleEventCount ? null : index === maxVisibleEventCount ? (React__namespace.createElement(reactNative.Text, { key: "".concat(index, "-").concat(event.start, "-").concat(event.title, "-").concat(event.end), style: [
                             theme.typography.moreLabel,
                             { marginTop: 2, color: theme.palette.moreLabel },
-                        ], onPress: function () { return onPressMoreLabel === null || onPressMoreLabel === void 0 ? void 0 : onPressMoreLabel(events, date.toDate()); } }, moreLabel.replace('{moreCount}', "".concat(events.length - maxVisibleEventCount)))) : (React__namespace.createElement(CalendarEventForMonthView, { key: "".concat(index, "-").concat(event.start, "-").concat(event.title, "-").concat(event.end), event: event, eventCellStyle: eventCellStyle, eventCellAccessibilityProps: eventCellAccessibilityProps, onPressEvent: onPressEvent, renderEvent: renderEvent, date: date, dayOfTheWeek: ii, calendarWidth: calendarWidth, isRTL: theme.isRTL, eventMinHeightForMonthView: eventMinHeightForMonthView, showAdjacentMonths: showAdjacentMonths })),
+                        ], onPress: function () { return onPressMoreLabel === null || onPressMoreLabel === void 0 ? void 0 : onPressMoreLabel(events, date.toDate()); } }, moreLabel.replace('{moreCount}', "".concat(events.length - maxVisibleEventCount)))) : (React__namespace.createElement(CalendarEventForMonthView, { key: "".concat(index, "-").concat(event.start, "-").concat(event.title, "-").concat(event.end), event: event, eventCellStyle: eventCellStyle, eventCellAccessibilityProps: eventCellAccessibilityProps, onPressEvent: onPressEvent, onLongPressEvent: onLongPressEvent, renderEvent: renderEvent, date: date, dayOfTheWeek: ii, calendarWidth: calendarWidth, isRTL: theme.isRTL, eventMinHeightForMonthView: eventMinHeightForMonthView, showAdjacentMonths: showAdjacentMonths })),
                 ], false); }, []),
             disableMonthEventCellPress &&
                 calendarCellHeight > 0 && ( //if calendarCellHeight has not been set from layout event, then don't render the element since it will be 0 height
@@ -1234,13 +1245,16 @@ function TouchableGradually(_a) {
 }
 
 function _CalendarHeader(_a) {
-    var dateRange = _a.dateRange, cellHeight = _a.cellHeight, style = _a.style, allDayEventCellStyle = _a.allDayEventCellStyle, allDayEventCellTextColor = _a.allDayEventCellTextColor, allDayEvents = _a.allDayEvents, onPressDateHeader = _a.onPressDateHeader, onPressEvent = _a.onPressEvent, _b = _a.headerContentStyle, headerContentStyle = _b === void 0 ? {} : _b, _c = _a.dayHeaderStyle, dayHeaderStyle = _c === void 0 ? {} : _c, _d = _a.showAllDayEventCell, showAllDayEventCell = _d === void 0 ? true : _d, _e = _a.hideHours, hideHours = _e === void 0 ? false : _e, _f = _a.showWeekNumber, showWeekNumber = _f === void 0 ? false : _f, _g = _a.weekNumberPrefix, weekNumberPrefix = _g === void 0 ? '' : _g, _h = _a.allDayEventCellAccessibilityProps, allDayEventCellAccessibilityProps = _h === void 0 ? {} : _h, _j = _a.headerContainerAccessibilityProps, headerContainerAccessibilityProps = _j === void 0 ? {} : _j, _k = _a.headerCellAccessibilityProps, headerCellAccessibilityProps = _k === void 0 ? {} : _k;
+    var dateRange = _a.dateRange, cellHeight = _a.cellHeight, style = _a.style, allDayEventCellStyle = _a.allDayEventCellStyle, allDayEventCellTextColor = _a.allDayEventCellTextColor, allDayEvents = _a.allDayEvents, onPressDateHeader = _a.onPressDateHeader, onPressEvent = _a.onPressEvent, onLongPressEvent = _a.onLongPressEvent, _b = _a.headerContentStyle, headerContentStyle = _b === void 0 ? {} : _b, _c = _a.dayHeaderStyle, dayHeaderStyle = _c === void 0 ? {} : _c, _d = _a.showAllDayEventCell, showAllDayEventCell = _d === void 0 ? true : _d, _e = _a.hideHours, hideHours = _e === void 0 ? false : _e, _f = _a.showWeekNumber, showWeekNumber = _f === void 0 ? false : _f, _g = _a.weekNumberPrefix, weekNumberPrefix = _g === void 0 ? '' : _g, _h = _a.allDayEventCellAccessibilityProps, allDayEventCellAccessibilityProps = _h === void 0 ? {} : _h, _j = _a.headerContainerAccessibilityProps, headerContainerAccessibilityProps = _j === void 0 ? {} : _j, _k = _a.headerCellAccessibilityProps, headerCellAccessibilityProps = _k === void 0 ? {} : _k;
     var _onPressHeader = React__namespace.useCallback(function (date) {
         onPressDateHeader === null || onPressDateHeader === void 0 ? void 0 : onPressDateHeader(date);
     }, [onPressDateHeader]);
     var _onPressEvent = React__namespace.useCallback(function (event) {
         onPressEvent === null || onPressEvent === void 0 ? void 0 : onPressEvent(event);
     }, [onPressEvent]);
+    var _onLongPressEvent = React__namespace.useCallback(function (event) {
+        onLongPressEvent === null || onLongPressEvent === void 0 ? void 0 : onLongPressEvent(event);
+    }, [onLongPressEvent]);
     var theme = useTheme();
     var borderColor = { borderColor: theme.palette.gray['200'] };
     var primaryBg = { backgroundColor: theme.palette.primary.main };
@@ -1280,7 +1294,7 @@ function _CalendarHeader(_a) {
                     React__namespace.createElement(reactNative.Text, { style: [
                             {
                                 color: 'black',
-                                fontSize: 15,
+                                fontSize: 14,
                                 marginTop: 5,
                             },
                             // theme.typography.xl,
@@ -1292,8 +1306,7 @@ function _CalendarHeader(_a) {
                         React__namespace.createElement(reactNative.Text, { style: [
                                 {
                                     color: 'black',
-                                    fontSize: 15,
-                                    marginTop: 5,
+                                    fontSize: 14,
                                 },
                                 // theme.typography.xl,
                                 u['text-center'],
@@ -1309,7 +1322,9 @@ function _CalendarHeader(_a) {
                     var getEventStyle = typeof allDayEventCellStyle === 'function'
                         ? allDayEventCellStyle
                         : function () { return allDayEventCellStyle; };
-                    return (React__namespace.createElement(reactNative.TouchableOpacity, __assign({ style: [eventCellCss.style, primaryBg, u['mt-2'], getEventStyle(event)], key: "".concat(index, "-").concat(event.start, "-").concat(event.title, "-").concat(event.end), onPress: function () { return _onPressEvent(event); } }, allDayEventCellAccessibilityProps),
+                    return (React__namespace.createElement(reactNative.TouchableOpacity, __assign({ style: [eventCellCss.style, primaryBg, u['mt-2'], getEventStyle(event)], key: "".concat(index, "-").concat(event.start, "-").concat(event.title, "-").concat(event.end), onPress: function () { return _onPressEvent(event); }, onLongPress: function () {
+                            _onLongPressEvent(event);
+                        } }, allDayEventCellAccessibilityProps),
                         React__namespace.createElement(reactNative.Text, { style: {
                                 fontSize: theme.typography.sm.fontSize,
                                 color: allDayEventCellTextColor || theme.palette.primary.contrastText,
@@ -1352,7 +1367,7 @@ function _CalendarHeaderForMonthView(_a) {
 var CalendarHeaderForMonthView = typedMemo(_CalendarHeaderForMonthView);
 
 function _Schedule(_a) {
-    var events = _a.events, ampm = _a.ampm, onPressEvent = _a.onPressEvent, eventCellStyle = _a.eventCellStyle, _b = _a.eventCellAccessibilityProps, eventCellAccessibilityProps = _b === void 0 ? {} : _b, showTime = _a.showTime, isEventOrderingEnabled = _a.isEventOrderingEnabled, overlapOffset = _a.overlapOffset, renderEvent = _a.renderEvent, containerHeight = _a.containerHeight, style = _a.style, activeDate = _a.activeDate, _c = _a.weekDayHeaderHighlightColor, weekDayHeaderHighlightColor = _c === void 0 ? '' : _c, _d = _a.dayHeaderHighlightColor, dayHeaderHighlightColor = _d === void 0 ? '' : _d, itemSeparatorComponent = _a.itemSeparatorComponent, locale = _a.locale, _e = _a.calendarCellAccessibilityProps, calendarCellAccessibilityProps = _e === void 0 ? {} : _e, scheduleMonthSeparatorStyle = _a.scheduleMonthSeparatorStyle;
+    var events = _a.events, ampm = _a.ampm, onPressEvent = _a.onPressEvent, onLongPressEvent = _a.onLongPressEvent, eventCellStyle = _a.eventCellStyle, _b = _a.eventCellAccessibilityProps, eventCellAccessibilityProps = _b === void 0 ? {} : _b, showTime = _a.showTime, isEventOrderingEnabled = _a.isEventOrderingEnabled, overlapOffset = _a.overlapOffset, renderEvent = _a.renderEvent, containerHeight = _a.containerHeight, style = _a.style, activeDate = _a.activeDate, _c = _a.weekDayHeaderHighlightColor, weekDayHeaderHighlightColor = _c === void 0 ? '' : _c, _d = _a.dayHeaderHighlightColor, dayHeaderHighlightColor = _d === void 0 ? '' : _d, itemSeparatorComponent = _a.itemSeparatorComponent, locale = _a.locale, _e = _a.calendarCellAccessibilityProps, calendarCellAccessibilityProps = _e === void 0 ? {} : _e, scheduleMonthSeparatorStyle = _a.scheduleMonthSeparatorStyle;
     var theme = useTheme();
     /**
      * Bind default style for eventCellStyle.
@@ -1439,7 +1454,7 @@ function _Schedule(_a) {
                         ] }, date.format('dddd')))),
             React__default["default"].createElement(reactNative.View, { style: [u.flex, u['flex-column'], { width: '75%' }] }, eventGroup.map(function (event, index) {
                 return (React__default["default"].createElement(reactNative.View, { style: [u['flex-1'], u['overflow-hidden'], { marginTop: 2, marginBottom: 2 }], key: "".concat(index, "-").concat(event.start, "-").concat(event.title, "-").concat(event.end) },
-                    React__default["default"].createElement(CalendarEvent, { key: "".concat(index).concat(event.start).concat(event.title).concat(event.end), event: event, onPressEvent: onPressEvent, eventCellStyle: eventStyles, eventCellAccessibilityProps: eventCellAccessibilityProps, showTime: showTime, eventCount: isEventOrderingEnabled ? getCountOfEventsAtEvent(event, events) : undefined, eventOrder: isEventOrderingEnabled ? getOrderOfEvent(event, events) : undefined, overlapOffset: overlapOffset, renderEvent: renderEvent, ampm: ampm, mode: "schedule" })));
+                    React__default["default"].createElement(CalendarEvent, { key: "".concat(index).concat(event.start).concat(event.title).concat(event.end), event: event, onPressEvent: onPressEvent, onLongPressEvent: onLongPressEvent, eventCellStyle: eventStyles, eventCellAccessibilityProps: eventCellAccessibilityProps, showTime: showTime, eventCount: isEventOrderingEnabled ? getCountOfEventsAtEvent(event, events) : undefined, eventOrder: isEventOrderingEnabled ? getOrderOfEvent(event, events) : undefined, overlapOffset: overlapOffset, renderEvent: renderEvent, ampm: ampm, mode: "schedule" })));
             }))));
     };
     return (React__default["default"].createElement(reactNative.View, { style: __assign(__assign({}, style), { height: containerHeight }) },
@@ -1451,7 +1466,7 @@ function _Schedule(_a) {
 var Schedule = typedMemo(_Schedule);
 
 function _CalendarContainer(_a) {
-    var events = _a.events, height = _a.height, hourRowHeight = _a.hourRowHeight, _b = _a.ampm, ampm = _b === void 0 ? false : _b, date = _a.date, _c = _a.allDayEventCellStyle, allDayEventCellStyle = _c === void 0 ? {} : _c, _d = _a.allDayEventCellTextColor, allDayEventCellTextColor = _d === void 0 ? '' : _d, _e = _a.allDayEventCellAccessibilityProps, allDayEventCellAccessibilityProps = _e === void 0 ? {} : _e, eventCellStyle = _a.eventCellStyle, _f = _a.eventCellTextColor, eventCellTextColor = _f === void 0 ? '' : _f, _g = _a.eventCellAccessibilityProps, eventCellAccessibilityProps = _g === void 0 ? {} : _g, _h = _a.calendarCellAccessibilityPropsForMonthView, calendarCellAccessibilityPropsForMonthView = _h === void 0 ? {} : _h, calendarCellStyle = _a.calendarCellStyle, calendarCellTextStyle = _a.calendarCellTextStyle, _j = _a.calendarCellAccessibilityProps, calendarCellAccessibilityProps = _j === void 0 ? {} : _j, _k = _a.locale, locale = _k === void 0 ? 'en' : _k, _l = _a.hideNowIndicator, hideNowIndicator = _l === void 0 ? false : _l, _m = _a.mode, mode = _m === void 0 ? 'week' : _m, overlapOffset = _a.overlapOffset, _o = _a.scrollOffsetMinutes, scrollOffsetMinutes = _o === void 0 ? 0 : _o, _p = _a.showTime, showTime = _p === void 0 ? true : _p, _q = _a.headerContainerStyle, headerContainerStyle = _q === void 0 ? {} : _q, _r = _a.headerContainerAccessibilityProps, headerContainerAccessibilityProps = _r === void 0 ? {} : _r, _s = _a.headerContentStyle, headerContentStyle = _s === void 0 ? {} : _s, _t = _a.headerCellAccessibilityProps, headerCellAccessibilityProps = _t === void 0 ? {} : _t, _u = _a.dayHeaderStyle, dayHeaderStyle = _u === void 0 ? {} : _u, _v = _a.dayHeaderHighlightColor, dayHeaderHighlightColor = _v === void 0 ? '' : _v, _w = _a.weekDayHeaderHighlightColor, weekDayHeaderHighlightColor = _w === void 0 ? '' : _w, _x = _a.bodyContainerStyle, bodyContainerStyle = _x === void 0 ? {} : _x, _y = _a.swipeEnabled, swipeEnabled = _y === void 0 ? true : _y, _z = _a.weekStartsOn, weekStartsOn = _z === void 0 ? 0 : _z, onChangeDate = _a.onChangeDate, onLongPressCell = _a.onLongPressCell, onPressCell = _a.onPressCell, onPressDateHeader = _a.onPressDateHeader, onPressEvent = _a.onPressEvent, renderEvent = _a.renderEvent, _0 = _a.renderHeader, HeaderComponent = _0 === void 0 ? CalendarHeader : _0, _1 = _a.renderHeaderForMonthView, HeaderComponentForMonthView = _1 === void 0 ? CalendarHeaderForMonthView : _1, _2 = _a.weekEndsOn, weekEndsOn = _2 === void 0 ? 6 : _2, _3 = _a.maxVisibleEventCount, maxVisibleEventCount = _3 === void 0 ? 3 : _3, _4 = _a.eventMinHeightForMonthView, eventMinHeightForMonthView = _4 === void 0 ? 22 : _4, activeDate = _a.activeDate, _5 = _a.headerComponent, headerComponent = _5 === void 0 ? null : _5, _6 = _a.headerComponentStyle, headerComponentStyle = _6 === void 0 ? {} : _6, _7 = _a.hourStyle, hourStyle = _7 === void 0 ? {} : _7, _8 = _a.showAllDayEventCell, showAllDayEventCell = _8 === void 0 ? true : _8, _9 = _a.moreLabel, moreLabel = _9 === void 0 ? '{moreCount} More' : _9, _10 = _a.showAdjacentMonths, showAdjacentMonths = _10 === void 0 ? true : _10, _11 = _a.sortedMonthView, sortedMonthView = _11 === void 0 ? true : _11, _12 = _a.hideHours, hideHours = _12 === void 0 ? false : _12, _13 = _a.minHour, minHour = _13 === void 0 ? 0 : _13, _14 = _a.maxHour, maxHour = _14 === void 0 ? 23 : _14, isEventOrderingEnabled = _a.isEventOrderingEnabled, _15 = _a.showWeekNumber, showWeekNumber = _15 === void 0 ? false : _15, _16 = _a.weekNumberPrefix, weekNumberPrefix = _16 === void 0 ? '' : _16, onPressMoreLabel = _a.onPressMoreLabel, renderCustomDateForMonth = _a.renderCustomDateForMonth, _17 = _a.disableMonthEventCellPress, disableMonthEventCellPress = _17 === void 0 ? false : _17, _18 = _a.showVerticalScrollIndicator, showVerticalScrollIndicator = _18 === void 0 ? false : _18, _19 = _a.itemSeparatorComponent, itemSeparatorComponent = _19 === void 0 ? null : _19, enrichedEventsByDate = _a.enrichedEventsByDate, _20 = _a.enableEnrichedEvents, enableEnrichedEvents = _20 === void 0 ? false : _20, _21 = _a.eventsAreSorted, eventsAreSorted = _21 === void 0 ? false : _21, onSwipeEnd = _a.onSwipeEnd, _22 = _a.timeslots, timeslots = _22 === void 0 ? 0 : _22, hourComponent = _a.hourComponent, _23 = _a.scheduleMonthSeparatorStyle, scheduleMonthSeparatorStyle = _23 === void 0 ? {} : _23;
+    var events = _a.events, height = _a.height, hourRowHeight = _a.hourRowHeight, _b = _a.ampm, ampm = _b === void 0 ? false : _b, date = _a.date, _c = _a.allDayEventCellStyle, allDayEventCellStyle = _c === void 0 ? {} : _c, _d = _a.allDayEventCellTextColor, allDayEventCellTextColor = _d === void 0 ? '' : _d, _e = _a.allDayEventCellAccessibilityProps, allDayEventCellAccessibilityProps = _e === void 0 ? {} : _e, eventCellStyle = _a.eventCellStyle, _f = _a.eventCellTextColor, eventCellTextColor = _f === void 0 ? '' : _f, _g = _a.eventCellAccessibilityProps, eventCellAccessibilityProps = _g === void 0 ? {} : _g, _h = _a.calendarCellAccessibilityPropsForMonthView, calendarCellAccessibilityPropsForMonthView = _h === void 0 ? {} : _h, calendarCellStyle = _a.calendarCellStyle, calendarCellTextStyle = _a.calendarCellTextStyle, _j = _a.calendarCellAccessibilityProps, calendarCellAccessibilityProps = _j === void 0 ? {} : _j, _k = _a.locale, locale = _k === void 0 ? 'en' : _k, _l = _a.hideNowIndicator, hideNowIndicator = _l === void 0 ? false : _l, _m = _a.mode, mode = _m === void 0 ? 'week' : _m, overlapOffset = _a.overlapOffset, _o = _a.scrollOffsetMinutes, scrollOffsetMinutes = _o === void 0 ? 0 : _o, _p = _a.showTime, showTime = _p === void 0 ? true : _p, _q = _a.headerContainerStyle, headerContainerStyle = _q === void 0 ? {} : _q, _r = _a.headerContainerAccessibilityProps, headerContainerAccessibilityProps = _r === void 0 ? {} : _r, _s = _a.headerContentStyle, headerContentStyle = _s === void 0 ? {} : _s, _t = _a.headerCellAccessibilityProps, headerCellAccessibilityProps = _t === void 0 ? {} : _t, _u = _a.dayHeaderStyle, dayHeaderStyle = _u === void 0 ? {} : _u, _v = _a.dayHeaderHighlightColor, dayHeaderHighlightColor = _v === void 0 ? '' : _v, _w = _a.weekDayHeaderHighlightColor, weekDayHeaderHighlightColor = _w === void 0 ? '' : _w, _x = _a.bodyContainerStyle, bodyContainerStyle = _x === void 0 ? {} : _x, _y = _a.swipeEnabled, swipeEnabled = _y === void 0 ? true : _y, _z = _a.weekStartsOn, weekStartsOn = _z === void 0 ? 0 : _z, onChangeDate = _a.onChangeDate, onLongPressCell = _a.onLongPressCell, onPressCell = _a.onPressCell, onPressDateHeader = _a.onPressDateHeader, onPressEvent = _a.onPressEvent, onLongPressEvent = _a.onLongPressEvent, renderEvent = _a.renderEvent, _0 = _a.renderHeader, HeaderComponent = _0 === void 0 ? CalendarHeader : _0, _1 = _a.renderHeaderForMonthView, HeaderComponentForMonthView = _1 === void 0 ? CalendarHeaderForMonthView : _1, _2 = _a.weekEndsOn, weekEndsOn = _2 === void 0 ? 6 : _2, _3 = _a.maxVisibleEventCount, maxVisibleEventCount = _3 === void 0 ? 3 : _3, _4 = _a.eventMinHeightForMonthView, eventMinHeightForMonthView = _4 === void 0 ? 22 : _4, activeDate = _a.activeDate, _5 = _a.headerComponent, headerComponent = _5 === void 0 ? null : _5, _6 = _a.headerComponentStyle, headerComponentStyle = _6 === void 0 ? {} : _6, _7 = _a.hourStyle, hourStyle = _7 === void 0 ? {} : _7, _8 = _a.showAllDayEventCell, showAllDayEventCell = _8 === void 0 ? true : _8, _9 = _a.moreLabel, moreLabel = _9 === void 0 ? '{moreCount} More' : _9, _10 = _a.showAdjacentMonths, showAdjacentMonths = _10 === void 0 ? true : _10, _11 = _a.sortedMonthView, sortedMonthView = _11 === void 0 ? true : _11, _12 = _a.hideHours, hideHours = _12 === void 0 ? false : _12, _13 = _a.minHour, minHour = _13 === void 0 ? 0 : _13, _14 = _a.maxHour, maxHour = _14 === void 0 ? 23 : _14, isEventOrderingEnabled = _a.isEventOrderingEnabled, _15 = _a.showWeekNumber, showWeekNumber = _15 === void 0 ? false : _15, _16 = _a.weekNumberPrefix, weekNumberPrefix = _16 === void 0 ? '' : _16, onPressMoreLabel = _a.onPressMoreLabel, renderCustomDateForMonth = _a.renderCustomDateForMonth, _17 = _a.disableMonthEventCellPress, disableMonthEventCellPress = _17 === void 0 ? false : _17, _18 = _a.showVerticalScrollIndicator, showVerticalScrollIndicator = _18 === void 0 ? false : _18, _19 = _a.itemSeparatorComponent, itemSeparatorComponent = _19 === void 0 ? null : _19, enrichedEventsByDate = _a.enrichedEventsByDate, _20 = _a.enableEnrichedEvents, enableEnrichedEvents = _20 === void 0 ? false : _20, _21 = _a.eventsAreSorted, eventsAreSorted = _21 === void 0 ? false : _21, onSwipeEnd = _a.onSwipeEnd, _22 = _a.timeslots, timeslots = _22 === void 0 ? 0 : _22, hourComponent = _a.hourComponent, _23 = _a.scheduleMonthSeparatorStyle, scheduleMonthSeparatorStyle = _23 === void 0 ? {} : _23;
     // To ensure we have proper effect callback, use string to date comparision.
     var dateString = date === null || date === void 0 ? void 0 : date.toString();
     var calendarRef = React.useRef(null);
@@ -1529,6 +1544,7 @@ function _CalendarContainer(_a) {
         dateRange: getDateRange(targetDate),
         mode: mode,
         onPressEvent: onPressEvent,
+        onLongPressEvent: onLongPressEvent,
         hideHours: hideHours,
         showWeekNumber: showWeekNumber,
     };
@@ -1555,12 +1571,12 @@ function _CalendarContainer(_a) {
                             var _a;
                             onPressCell === null || onPressCell === void 0 ? void 0 : onPressCell(date);
                             (_a = calendarRef.current) === null || _a === void 0 ? void 0 : _a.setPage(0, { animated: true });
-                        }, onPressDateHeader: onPressDateHeader, onPressEvent: onPressEvent, renderEvent: renderEvent, targetDate: getCurrentDate(index), maxVisibleEventCount: maxVisibleEventCount, eventMinHeightForMonthView: eventMinHeightForMonthView, sortedMonthView: sortedMonthView, moreLabel: moreLabel, onPressMoreLabel: onPressMoreLabel, renderCustomDateForMonth: renderCustomDateForMonth, disableMonthEventCellPress: disableMonthEventCellPress }))));
+                        }, onPressDateHeader: onPressDateHeader, onPressEvent: onPressEvent, onLongPressEvent: onLongPressEvent, renderEvent: renderEvent, targetDate: getCurrentDate(index), maxVisibleEventCount: maxVisibleEventCount, eventMinHeightForMonthView: eventMinHeightForMonthView, sortedMonthView: sortedMonthView, moreLabel: moreLabel, onPressMoreLabel: onPressMoreLabel, renderCustomDateForMonth: renderCustomDateForMonth, disableMonthEventCellPress: disableMonthEventCellPress }))));
             }, onPageChange: function (page) { return onSwipeEnd === null || onSwipeEnd === void 0 ? void 0 : onSwipeEnd(getCurrentDate(page).toDate()); }, pageBuffer: 2 }));
     }
     var headerProps = __assign(__assign({}, commonProps), { style: headerContainerStyle, headerContainerAccessibilityProps: headerContainerAccessibilityProps, locale: locale, allDayEventCellStyle: allDayEventCellStyle, allDayEventCellTextColor: allDayEventCellTextColor, allDayEvents: allDayEvents, allDayEventCellAccessibilityProps: allDayEventCellAccessibilityProps, onPressDateHeader: onPressDateHeader, activeDate: activeDate, headerContentStyle: headerContentStyle, headerCellAccessibilityProps: headerCellAccessibilityProps, dayHeaderStyle: dayHeaderStyle, dayHeaderHighlightColor: dayHeaderHighlightColor, weekDayHeaderHighlightColor: weekDayHeaderHighlightColor, showAllDayEventCell: showAllDayEventCell, weekNumberPrefix: weekNumberPrefix });
     if (mode === 'schedule') {
-        return (React__default["default"].createElement(Schedule, __assign({ events: __spreadArray(__spreadArray([], daytimeEvents, true), allDayEvents, true) }, headerProps, { style: bodyContainerStyle, containerHeight: height, eventCellStyle: eventCellStyle, calendarCellStyle: calendarCellStyle, calendarCellAccessibilityProps: calendarCellAccessibilityProps, hideNowIndicator: hideNowIndicator, overlapOffset: overlapOffset, scrollOffsetMinutes: scrollOffsetMinutes, ampm: ampm, showTime: showTime, onLongPressCell: onLongPressCell, onPressCell: onPressCell, onPressEvent: onPressEvent, onSwipeHorizontal: onSwipeHorizontal, renderEvent: renderEvent, headerComponent: headerComponent, headerComponentStyle: headerComponentStyle, hourStyle: hourStyle, isEventOrderingEnabled: isEventOrderingEnabled, showVerticalScrollIndicator: showVerticalScrollIndicator, itemSeparatorComponent: itemSeparatorComponent, scheduleMonthSeparatorStyle: scheduleMonthSeparatorStyle })));
+        return (React__default["default"].createElement(Schedule, __assign({ events: __spreadArray(__spreadArray([], daytimeEvents, true), allDayEvents, true) }, headerProps, { style: bodyContainerStyle, containerHeight: height, eventCellStyle: eventCellStyle, calendarCellStyle: calendarCellStyle, calendarCellAccessibilityProps: calendarCellAccessibilityProps, hideNowIndicator: hideNowIndicator, overlapOffset: overlapOffset, scrollOffsetMinutes: scrollOffsetMinutes, ampm: ampm, showTime: showTime, onLongPressCell: onLongPressCell, onPressCell: onPressCell, onPressEvent: onPressEvent, onLongPressEvent: onLongPressEvent, onSwipeHorizontal: onSwipeHorizontal, renderEvent: renderEvent, headerComponent: headerComponent, headerComponentStyle: headerComponentStyle, hourStyle: hourStyle, isEventOrderingEnabled: isEventOrderingEnabled, showVerticalScrollIndicator: showVerticalScrollIndicator, itemSeparatorComponent: itemSeparatorComponent, scheduleMonthSeparatorStyle: scheduleMonthSeparatorStyle })));
     }
     return (React__default["default"].createElement(InfinitePager__default["default"], { ref: calendarRef, renderPage: function (_a) {
             var index = _a.index;
@@ -1572,7 +1588,7 @@ function _CalendarContainer(_a) {
                         if (mode !== 'day') {
                             (_a = calendarRef.current) === null || _a === void 0 ? void 0 : _a.setPage(0, { animated: true });
                         }
-                    }, onPressEvent: onPressEvent, renderEvent: renderEvent, headerComponent: headerComponent, headerComponentStyle: headerComponentStyle, hourStyle: hourStyle, isEventOrderingEnabled: isEventOrderingEnabled, showVerticalScrollIndicator: showVerticalScrollIndicator, enrichedEventsByDate: enrichedEventsByDate, enableEnrichedEvents: enableEnrichedEvents, eventsAreSorted: eventsAreSorted, timeslots: timeslots, hourComponent: hourComponent }))));
+                    }, onPressEvent: onPressEvent, onLongPressEvent: onLongPressEvent, renderEvent: renderEvent, headerComponent: headerComponent, headerComponentStyle: headerComponentStyle, hourStyle: hourStyle, isEventOrderingEnabled: isEventOrderingEnabled, showVerticalScrollIndicator: showVerticalScrollIndicator, enrichedEventsByDate: enrichedEventsByDate, enableEnrichedEvents: enableEnrichedEvents, eventsAreSorted: eventsAreSorted, timeslots: timeslots, hourComponent: hourComponent }))));
         }, onPageChange: function (page) { return onSwipeEnd === null || onSwipeEnd === void 0 ? void 0 : onSwipeEnd(getCurrentDate(page).toDate()); }, pageBuffer: 2 }));
 }
 var CalendarContainer = typedMemo(_CalendarContainer);

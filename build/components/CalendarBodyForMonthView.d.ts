@@ -19,6 +19,7 @@ interface CalendarBodyForMonthViewProps<T extends ICalendarEventBase> {
     onPressCell?: (date: Date) => void;
     onPressDateHeader?: (date: Date) => void;
     onPressEvent?: (event: T) => void;
+    onLongPressEvent?: (event: T) => void;
     onSwipeHorizontal?: (d: HorizontalDirection) => void;
     renderEvent?: EventRenderer<T>;
     maxVisibleEventCount: number;
@@ -31,6 +32,6 @@ interface CalendarBodyForMonthViewProps<T extends ICalendarEventBase> {
     renderCustomDateForMonth?: (date: Date) => React.ReactElement | null;
     disableMonthEventCellPress?: boolean;
 }
-declare function _CalendarBodyForMonthView<T extends ICalendarEventBase>({ containerHeight, targetDate, style, onLongPressCell, onPressCell, onPressDateHeader, events, onPressEvent, eventCellStyle, eventCellAccessibilityProps, calendarCellStyle, calendarCellAccessibilityPropsForMonthView, calendarCellAccessibilityProps, calendarCellTextStyle, hideNowIndicator, showAdjacentMonths, renderEvent, maxVisibleEventCount, weekStartsOn, eventMinHeightForMonthView, moreLabel, onPressMoreLabel, sortedMonthView, showWeekNumber, renderCustomDateForMonth, disableMonthEventCellPress, }: CalendarBodyForMonthViewProps<T>): React.JSX.Element;
+declare function _CalendarBodyForMonthView<T extends ICalendarEventBase>({ containerHeight, targetDate, style, onLongPressCell, onPressCell, onPressDateHeader, events, onPressEvent, onLongPressEvent, eventCellStyle, eventCellAccessibilityProps, calendarCellStyle, calendarCellAccessibilityPropsForMonthView, calendarCellAccessibilityProps, calendarCellTextStyle, hideNowIndicator, showAdjacentMonths, renderEvent, maxVisibleEventCount, weekStartsOn, eventMinHeightForMonthView, moreLabel, onPressMoreLabel, sortedMonthView, showWeekNumber, renderCustomDateForMonth, disableMonthEventCellPress, }: CalendarBodyForMonthViewProps<T>): React.JSX.Element;
 export declare const CalendarBodyForMonthView: typeof _CalendarBodyForMonthView;
 export {};

@@ -24,6 +24,7 @@ const getEventCellPositionStyle = (start: Date, end: Date, minHour: number, hour
 interface CalendarEventProps<T extends ICalendarEventBase> {
   event: T
   onPressEvent?: (event: T) => void
+  onLongPressEvent?: (event: T) => void
   eventCellStyle?: EventCellStyle<T>
   eventCellTextColor?: string
   eventCellAccessibilityProps?: AccessibilityProps
@@ -42,6 +43,7 @@ interface CalendarEventProps<T extends ICalendarEventBase> {
 function _CalendarEvent<T extends ICalendarEventBase>({
   event,
   onPressEvent,
+  onLongPressEvent,
   eventCellStyle,
   eventCellAccessibilityProps = {},
   eventCellTextColor,
@@ -67,6 +69,7 @@ function _CalendarEvent<T extends ICalendarEventBase>({
     eventCellStyle,
     eventCellAccessibilityProps,
     onPressEvent,
+    onLongPressEvent,
     injectedStyles:
       mode === 'schedule'
         ? [getStyleForOverlappingEvent(eventOrder, overlapOffset, palettes)]
