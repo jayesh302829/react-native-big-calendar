@@ -160,7 +160,7 @@ function _CalendarHeader<T extends ICalendarEventBase>({
                   },
                 ]}
               >
-                {date.format('ddd')}
+                {date.format('dddd')}
               </Text>
               <View
                 style={
@@ -198,7 +198,7 @@ function _CalendarHeader<T extends ICalendarEventBase>({
                       u['mt-6'],
                   ]}
                 >
-                  {date.format('D')}
+                  {date.format('DD/MM/YYYY')}
                 </Text>
               </View>
             </View>
