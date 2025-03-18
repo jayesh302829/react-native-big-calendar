@@ -54,7 +54,7 @@ function _CalendarHeaderForMonthView({
               style={[
                 u['text-center'],
                 {
-                  color: theme.palette.gray['800'],
+                  color: theme.palette.gray['500'],
                 },
               ]}
             >

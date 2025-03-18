@@ -166,19 +166,7 @@ function _CalendarHeader<T extends ICalendarEventBase>({
                 style={
                   objHasContent(dayHeaderStyle)
                     ? dayHeaderStyle
-                    : shouldHighlight
-                      ? [
-                          primaryBg,
-                          u['h-36'],
-                          u['w-36'],
-                          u['pb-6'],
-                          u['rounded-full'],
-                          u['items-center'],
-                          u['justify-center'],
-                          u['self-center'],
-                          u['z-20'],
-                        ]
-                      : [u['mb-6']]
+                    : [u['mb-6']]
                 }
               >
                 <Text
@@ -188,7 +176,7 @@ function _CalendarHeader<T extends ICalendarEventBase>({
                         ? stringHasContent(dayHeaderHighlightColor)
                           ? dayHeaderHighlightColor
                           : theme.palette.primary.contrastText
-                        : theme.palette.gray['800'],
+                        : theme.palette.gray['500'],
                     },
                     theme.typography.xl,
                     u['text-center'],
