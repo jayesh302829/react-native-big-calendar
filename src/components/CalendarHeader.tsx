@@ -10,8 +10,7 @@ import {
 import { eventCellCss, u } from '../commonStyles'
 import type { ICalendarEventBase } from '../interfaces'
 import { useTheme } from '../theme/ThemeContext'
-import { isToday } from '../utils/datetime'
-import { objHasContent, stringHasContent } from '../utils/object'
+import { objHasContent } from '../utils/object'
 import { typedMemo } from '../utils/react'
 
 export interface CalendarHeaderProps<T extends ICalendarEventBase> {
@@ -46,10 +45,8 @@ function _CalendarHeader<T extends ICalendarEventBase>({
   allDayEvents,
   onPressDateHeader,
   onPressEvent,
-  activeDate,
   headerContentStyle = {},
   dayHeaderStyle = {},
-  weekDayHeaderHighlightColor = '',
   showAllDayEventCell = true,
   hideHours = false,
   showWeekNumber = false,
@@ -128,8 +125,6 @@ function _CalendarHeader<T extends ICalendarEventBase>({
         </View>
       )}
       {dateRange.map((date) => {
-        const shouldHighlight = activeDate ? date.isSame(activeDate, 'date') : isToday(date)
-
         return (
           <TouchableOpacity
             style={[u['flex-1'], u['pt-2']]}
@@ -145,17 +140,15 @@ function _CalendarHeader<T extends ICalendarEventBase>({
               ]}
             >
               <Text
-                style={[
-                  theme.typography.xs,
-                  u['text-center'],
-                  {
-                    color: shouldHighlight
-                      ? stringHasContent(weekDayHeaderHighlightColor)
-                        ? weekDayHeaderHighlightColor
-                        : theme.palette.primary.main
-                      : theme.palette.gray['500'],
-                  },
-                ]}
+               style={[
+                {
+                  color: 'black',
+                  fontSize:15,
+                  marginTop:5,
+                },
+                // theme.typography.xl,
+                u['text-center'],
+              ]}
               >
                 {date.format('dddd')}
               </Text>
@@ -170,13 +163,14 @@ function _CalendarHeader<T extends ICalendarEventBase>({
                   style={[
                     {
                       color: 'black',
-                      fontSize:15
+                      fontSize:15,
+                      marginTop:5,
                     },
                     // theme.typography.xl,
                     u['text-center'],
                   ]}
                 >
-                  {date.format('DD/MM/YYYY')}
+                  {date.format('MM/DD/YYYY')}
                 </Text>
               </View>
             </View>
